@@ -1,0 +1,73 @@
+{
+  "name": "upnext",
+  "version": "1.0.0",
+  "description": "check the status of your favorite show",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server/server.js",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development nodemon server/server.js & NODE_ENV=development webpack serve --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thegeodudes/upNext.git"
+  },
+  "keywords": [
+    "sql",
+    "react",
+    "mui",
+    "redux",
+    "express"
+  ],
+  "author": "Larissa Ciancarelli, Mireille Crocco, Carly Yarnell, Yale Yng-Wong",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.3",
+    "@reduxjs/toolkit": "^1.8.1",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "pg": "^8.7.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-redux": "^8.0.1",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^14.2.0",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "nodemon": "^2.0.16",
+    "sass": "^1.50.1",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "supertest": "^6.2.3",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
+  },
+  "bugs": {
+    "url": "https://github.com/thegeodudes/upNext/issues"
+  },
+  "homepage": "https://github.com/thegeodudes/upNext#readme"
+}
