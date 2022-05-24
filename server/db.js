@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import pkg from 'pg';
+const dotenv = require('dotenv');
+const pkg = require('pg');
 
 dotenv.config();
 const { Pool } = pkg;
@@ -17,7 +17,7 @@ const pool = new Pool({
   // allowExitOnIdle: true,
 });
 
-export default {
+module.exports = {
   query: (text, params, callback) => pool.query(text, params, callback),
   end: () => pool.end(),
 };
