@@ -6,6 +6,7 @@ const initialState = {
   searchResults: [],
 };
 
+/* eslint-disable no-param-reassign */
 const appSlice = createSlice({
   name: 'app',
   initialState,
@@ -16,9 +17,9 @@ const appSlice = createSlice({
     setLogin(state, action) {
       state.loggedIn = action.payload;
     },
-    returnSearchResults(state, action) {
+    saveSearchResults(state, action) {
       state.searchResults = action.payload;
-    }
+    },
   },
 });
 
@@ -27,7 +28,7 @@ const { actions, reducer } = appSlice;
 export const {
   addToFavorites,
   setLogin,
-  returnSearchResults,
+  saveSearchResults,
 } = actions;
 
 export default reducer;
