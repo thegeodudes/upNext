@@ -8,7 +8,7 @@ import { CssBaseline } from '@mui/material';
 import App from './App';
 import store from './features/store';
 
-// import styles from './styles/app.scss';
+import styles from './styles/app.scss';
 // MUI theme
 const theme = createTheme({
   palette: {
