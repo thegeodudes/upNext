@@ -1,4 +1,4 @@
-import pkg from 'pg';
+const pkg = require('pg');
 
 const { Pool } = pkg;
 
@@ -15,7 +15,7 @@ const pool = new Pool({
   // allowExitOnIdle: true,
 });
 
-export default {
+module.exports = {
   query: (text, params, callback) => pool.query(text, params, callback),
   end: () => pool.end(),
 };
