@@ -10,7 +10,7 @@ const showsRouter = require(path.join(__dirname, './ShowsRouter.js'));
 app.use(express.json());
 
 app.use('/api/user', userRouter);
-// app.use('/api/shows', showsRouter);
+app.use('/api/shows', showsRouter);
 
 if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'test') {
   app.use('/build', express.static(path.join(__dirname, '../build')));

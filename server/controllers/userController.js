@@ -1,6 +1,6 @@
+const bcrypt = require('bcrypt');
 const db = require('../db');
 
-const bcrypt = require('bcrypt');
 const SALT_WORK_FACTOR = 10;
 
 const userController = {};

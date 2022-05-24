@@ -1,6 +1,29 @@
+const fetch = require('cross-fetch');
+const dotenv = require('dotenv');
 const db = require('../db');
 
+dotenv.config();
+
 const showsController = {
+  find: async (req, res, next) => {
+    try {
+      console.log('find shows', req.query, process.env.TV_AUTH);
+      const { search } = req.query;
+      // const url = `https://api.themoviedb.org/3/search/tv?api_key=<<api_key>>&language=en-US&page=1&include_adult=false`
+      const url = `https://api.themoviedb.org/3/search/tv?query=${search}&language=en-US&page=1&include_adult=false`;
+      const response = await fetch(url, {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.TV_AUTH}` },
+      });
+      console.log(response);
+      const foundShows = await response.json();
+      res.locals.findResponse = foundShows;
+    } catch (err) {
+      return next(err);
+    }
+    return next();
+  },
+
   createFavorite: async (req, res, next) => {
     try {
       const { showId, userId } = req.body;
