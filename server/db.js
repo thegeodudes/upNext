@@ -1,12 +1,14 @@
-import pkg from 'pg';
+const dotenv = require('dotenv');
+const pkg = require('pg');
 
+dotenv.config();
 const { Pool } = pkg;
 
 let PG_URI;
 if (process.env.TEST === 'true') {
-  PG_URI = 'postgres://wnulfkvp:zN9ZAJbMHbvnV_KaTTH84n9F-Ogry24P@fanny.db.elephantsql.com/wnulfkvp';
+  PG_URI = process.env.TEST_URI;
 } else {
-  PG_URI = 'postgres://vqmiicos:wN4X4TRN4VtVoaYnjNfB0ltAXFQOPjAc@fanny.db.elephantsql.com/vqmiicos';
+  PG_URI = process.env.DB_URI;
 }
 
 const pool = new Pool({
@@ -15,7 +17,7 @@ const pool = new Pool({
   // allowExitOnIdle: true,
 });
 
-export default {
+module.exports = {
   query: (text, params, callback) => pool.query(text, params, callback),
   end: () => pool.end(),
 };
