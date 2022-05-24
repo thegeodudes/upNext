@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, AppBar, Toolbar, Typography, Button, TextField } from '@mui/material';
-
 import SearchIcon from '@mui/icons-material/Search';
 import { setLogin } from '../features/appSlice';
+import SearchedShows from './SearchedShows';
 
 function Main(props) {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function Main(props) {
           </Toolbar>
         </AppBar>
       </Box>
-      <Box sx={{ display: 'flex', m: 1, pt:3, justifyContent: 'center'}}>
+      <Box sx={{ display: 'flex', m: 1, pt: 3, justifyContent: 'center'}}>
         <TextField 
         id="outlined-basic" 
         label="Search for shows"
@@ -41,7 +41,7 @@ function Main(props) {
         />
         <Button variant="contained" color="secondary" onClick={handleSearchSubmit}>LEts_Fucking_GO00o0o0000o!</Button>
       </Box>
-      { resultsSearch && <SearchedShows />}
+      {resultsSearch && <SearchedShows />}
     </div>
   )
 }
