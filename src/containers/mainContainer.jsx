@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, AppBar, Toolbar, Typography, Button, TextField, Grid } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import SearchedShowsModal from './searchedShowsModal';
-<<<<<<< HEAD
-import FavCalendar from './FavCalendar';
-import ShowCard from './savedShowCard';
-=======
->>>>>>> e7d975da04f3076294bcc82ec0b89bc922ae467a
-import SearchCard from './searchCard';
+// import FavCalendar from './FavCalendar';
+// import ShowCard from './savedShowCard';
+// import SearchCard from './searchCard';
 import FavsContainer from './favsContainer';
 import { getResults, getFavorites } from '../funcs';
 import { setLogin, saveSearchResults } from './../features/appSlice'
@@ -79,7 +76,6 @@ function Main(props) {
         </Grid>
       </div>
       <SearchedShowsModal searchSubmit={searchSubmit} />
-      <FavCalendar />
     </div>
   )
 }

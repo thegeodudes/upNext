@@ -4,6 +4,7 @@ import { getResults, getFavorites } from '../funcs';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveFavoriteShows } from './../features/appSlice';
 import ShowCard from './savedShowCard';
+import FavCalendar from './FavCalendar';
 
 const style = {
   // position: 'absolute',
@@ -43,9 +44,14 @@ function FavsContainer() {
   }, [loggedIn, userId]);
 
   return (
+    <div>
     <Grid container direction="row" display="flex" justifyContent="center" alignItems="center" sx={{ ...style }}>
       {myShows}
     </Grid>
+    <Grid >
+    <FavCalendar />
+    </Grid>
+    </div>
   )
 }
 
