@@ -171,11 +171,13 @@ const showSQL = {
   id: show.id,
   name: show.name,
   last_air_date: show.last_air_date,
-  next_episode_to_air: show.next_episode_to_air
+  next_episode_to_air: show.next_episode_to_air,
   in_production: show.in_production,
-  episode_run_time: show.episode_run_time[0]
+  episode_run_time: show.episode_run_time[0],
   poster_path: show.poster_path,
-  networks_id: ?
+  overview: show.overview,
+  tagline: show.tagline,
+  networks_id: ?,
   genres_id: ?
 }
 

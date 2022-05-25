@@ -4,8 +4,8 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
-const userRouter = require(path.join(__dirname, './UserRouter.js'));
-const showsRouter = require(path.join(__dirname, './ShowsRouter.js'));
+const userRouter = require('./UserRouter');
+const showsRouter = require('./ShowsRouter');
 
 app.use(express.json());
 
@@ -30,7 +30,7 @@ app.use((err, req, res, next) => {
     status: 500,
     message: { err: 'An error occurred' },
   };
-  const errorObj = Object.assign({}, defaultErr, err);
+  const errorObj = { ...defaultErr, ...err };
   console.log(errorObj.log);
   return res.status(errorObj.status).send(errorObj.message.err);
 });

@@ -8,9 +8,11 @@ router.get('/find', showsController.find, (req, res) => {
   return res.status(200).send(res.locals.findResults);
 });
 
-router.post('/addshow', showsController.createFavorite, (req, res) => res.sendStatus(200));
+router.get('/add', showsController.add, (req, res) => res.sendStatus(200));
 
-router.post('/removeshow', showsController.removeFavorite, (req, res) => res.sendStatus(200));
+router.post('/addfavorite', showsController.addFavorite, (req, res) => res.sendStatus(200));
+
+router.post('/removefavorite', showsController.removeFavorite, (req, res) => res.sendStatus(200));
 
 router.post('/myshows', showsController.getFavorites, (req, res) => {
   return res.status(200).json(res.locals.favorites);
