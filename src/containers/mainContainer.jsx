@@ -1,56 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, AppBar, Toolbar, Typography, Button, TextField, Grid } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import { setLogin } from '../features/appSlice';
-import SearchedShows from './SearchedShows';
-import ShowCard from './savedShowCard';
-import SearchCard from './searchCard';
-import utilFuncs from '../funcs';
+// import SearchIcon from '@mui/icons-material/Search';
+import SearchedShowsModal from './searchedShowsModal';
+// import FavCalendar from './FavCalendar';
+// import ShowCard from './savedShowCard';
+// import SearchCard from './searchCard';
+import FavsContainer from './favsContainer';
+import { getResults, getFavorites } from '../funcs';
+import { setLogin, saveSearchResults } from './../features/appSlice'
 
 function Main(props) {
   const dispatch = useDispatch();
   // check that the user is legit
   const loggedIn = useSelector((store) => store.app.loggedIn);
-  const userId = useSelector((store) => store.app.loggedIn);
+  const userId = useSelector((store) => store.app.userId);
   // useEffect on initial load, get users already starred shows to store in state
   // dispatch(setLogin(true));
+<<<<<<< HEAD
   //const [username, setUsername] = useState('Charles_Entertainment_Chz');
   const [showTitle, setShowTitle] = useState('');
   const handleTitleChange = ((e) => setShowTitle(e.target.value));
+=======
+  const [username, setUsername] = useState('Charles_Entertainment_Chz');
+  const [searchString, setSearchString] = useState('');
+  const handleTitleChange = ((e) => setSearchString(e.target.value));
+>>>>>>> Yale/search
   const [searchSubmit, setSearchSubmit] = useState(false);
   const [searchResult, setSearchResult] = useState({});
   const [myShows, setMyShows] = useState([]);
   const [mySearch, setMySearch] = useState([]);
-  const handleSearchSubmit = () => {
-    //call the get function
-    utilFuncs.getResults(showTitle, setSearchResult);
+
+  const handleSearchSubmit = async () => {
+    const searchResults = await getResults(searchString);
+    dispatch(saveSearchResults(searchResults));
     setSearchSubmit(true);
   };
 
   // for search result display
-  useEffect(() => {
-    if (loggedIn && Object.keys(searchResult).length) {
-      const tempShows = [];
-      searchResult.results.forEach((res) => {
-        tempShows.push(<SearchCard show={res} />);
-      });
-      setMySearch(tempShows);
-    }
-  }, [loggedIn, searchResult]);
+  // useEffect(() => {
+  //   if (loggedIn && Object.keys(searchResult).length) {
+  //     const tempShows = [];
+  //     searchResult.results.forEach((res) => {
+  //       tempShows.push(<SearchCard show={res} />);
+  //     });
+  //     setMySearch(tempShows);
+  //   }
+  // }, [loggedIn, searchResult]);
 
   // for already faved shows
-  // useEffect(() => {
-  //   if (loggedIn) {
-  //     const tempShows = [];
-  //     // const response = fetch(`http://localhost:3000/api/shows/getFavorites/${userId}`);
-  //     const shows = JSON.parse(response);
-  //     shows.forEach((res) => {
-  //       tempShows.push(<ShowCard props={res} />);
-  //     });
-  //     setMyShows(tempShows);
-  //   }
-  // }, [loggedIn]);
+
 
   return (
     <div>
@@ -70,18 +69,23 @@ function Main(props) {
             id="outlined-basic" 
             label="Search for shows"
             variant="outlined" 
-            value={showTitle}
+            value={searchString}
             onChange={handleTitleChange} 
           />
-          <Button variant="contained" color="secondary" onClick={handleSearchSubmit}>LEts_Fucking_GO00o0o0000o!</Button>
+          <Button variant="contained" color="secondary" onClick={handleSearchSubmit}>Search</Button>
         </Box>
-        {searchSubmit && <SearchedShows searchResult={searchResult}/>}
+        <FavsContainer />
       </div>
       <div className="myShows">
+<<<<<<< HEAD
         <Grid container direction="row" justifyContent="center" alignItems="center">
+=======
+        <Grid container direction="row" justifyContent="center alignItems=">
+>>>>>>> Yale/search
           {mySearch}
         </Grid>
       </div>
+      <SearchedShowsModal searchSubmit={searchSubmit} />
     </div>
   )
 }

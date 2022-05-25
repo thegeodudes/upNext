@@ -1,36 +1,41 @@
+<<<<<<< HEAD
 // http://localhost:3000/api/shows/find/?search=${searchTerm}
+=======
+>>>>>>> Yale/search
 const utilFuncs = {};
 
-utilFuncs.getResults = async(showTitle, setSearchResult) => {
+utilFuncs.getResults = async (searchString) => {
   try {
-    const results = await fetch('/api/shows/find/?search=' + showTitle);
+    const results = await fetch('/api/shows/find/?search=' + searchString);
     const jsonified = await results.json();
-    console.log(jsonified);
-    setSearchResult(jsonified);
+    console.log('is this a promise', jsonified);
+    return jsonified
   } catch (err) {
     console.log('ERROR', err);
   }
 };
 
-utilFuncs.getFavorites = async(userId) => {
-  try{
+utilFuncs.getFavorites = async (userId) => {
+  try {
     const results = await fetch('/api/shows/myshows', {
       method: 'POST',
-      body: json.stringify({ userId: 1 }),
+      body: JSON.stringify({ userId }),
       headers: { 'Content-Type': 'application/json' },
     });
+    return await results.json();
   } catch (err) {
     console.log('ERROR', err);
   }
 };
 
-utilFuncs.addFavorite = async(showId, userId) => {
-  try{
+utilFuncs.addFavorite = async (showId, userId) => {
+  try {
+    console.log('hello');
     const results = await fetch('/api/shows/addfavorite', {
       method: 'POST',
       body: JSON.stringify({
-        userId: 1,
-        showId: 1399,
+        userId,
+        showId,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -42,12 +47,12 @@ utilFuncs.addFavorite = async(showId, userId) => {
 };
 
 utilFuncs.removeFav = async(showId, userId) => {
-  try{
+  try {
     const results = await fetch('/api/shows/removefavorite', {
       method: 'POST',
       body: JSON.stringify({
-        userId: 1,
-        showId: 1399,
+        userId,
+        showId,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -58,6 +63,7 @@ utilFuncs.removeFav = async(showId, userId) => {
   }
 };
 
+<<<<<<< HEAD
 utilFuncs.signup = async(username, password, setLoginForDispatch, setUserIdForDispatch, setSignupError) => {
   try {
     const data = await fetch('/api/user/signup', {
@@ -109,3 +115,6 @@ utilFuncs.login = async(username, password, setLoginForDispatch, setUserIdForDis
 
 export default utilFuncs;
 // got it
+=======
+export const { getResults, getFavorites, addFavorite, removeFav } = utilFuncs;
+>>>>>>> Yale/search

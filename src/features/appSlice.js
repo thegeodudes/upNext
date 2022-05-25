@@ -3,8 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   shows: {},
   loggedIn: true,
+<<<<<<< HEAD
   userId: 0,
   searchResults: {},
+=======
+  userId: 1,
+  searchResults: {},
+  favoriteShows: [],
+>>>>>>> Yale/search
 };
 
 /* eslint-disable no-param-reassign */
@@ -24,6 +30,9 @@ const appSlice = createSlice({
     saveSearchResults(state, action) {
       state.searchResults = action.payload;
     },
+    saveFavoriteShows(state, action) {
+      state.favoriteShows = action.payload;
+    },
   },
 });
 
@@ -34,6 +43,7 @@ export const {
   setLogin,
   setUserId,
   saveSearchResults,
+  saveFavoriteShows,
 } = actions;
 
 export default reducer;

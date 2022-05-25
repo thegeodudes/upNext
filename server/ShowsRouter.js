@@ -4,13 +4,12 @@ const showsController = require('./controllers/showsController');
 const router = express.Router();
 
 router.get('/find', showsController.find, (req, res) => {
-  console.log('findResults', res.locals.findResults);
   return res.status(200).send(res.locals.findResults);
 });
 
-router.get('/add', showsController.add, (req, res) => res.sendStatus(200));
+// router.get('/add',  (req, res) => res.sendStatus(200));
 
-router.post('/addfavorite', showsController.addFavorite, (req, res) => res.sendStatus(200));
+router.post('/addfavorite', showsController.add, showsController.addFavorite, (req, res) => res.sendStatus(200));
 
 router.post('/removefavorite', showsController.removeFavorite, (req, res) => res.sendStatus(200));
 

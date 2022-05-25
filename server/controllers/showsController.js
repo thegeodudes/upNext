@@ -16,20 +16,28 @@ const showsController = {
       const foundShows = await response.json();
       res.locals.findResults = foundShows;
     } catch (err) {
-      return next(err);
+      return next({
+        log: `An error occurred in showsController.find middleware: ${err}`,
+        message: { err: 'An error occurred while finding a show' },
+      });
     }
     return next();
   },
 
   add: async (req, res, next) => {
     try {
+      // if show exists move to next middleware
+      let params = [req.body.showId];
+      console.log('first in add')
+      let queryString = 'SELECT FROM shows WHERE id = $1;';
+      let result = await db.query(queryString, params);
+      if (result.rows.length) return next();
       // grab show object using id
-      const url = `https://api.themoviedb.org/3/tv/${req.query.id}&language=en-US`;
+      const url = `https://api.themoviedb.org/3/tv/${req.body.showId}&language=en-US`;
       const response = await fetch(url, {
         method: 'get',
         headers: { Authorization: `Bearer ${process.env.TV_AUTH}` },
       });
-      let params = [req.query.id];
       const show = await response.json();
       // destructure and write show to db
       const {
@@ -54,17 +62,20 @@ const showsController = {
         overview,
         tagline,
       ];
-      const queryString = 'INSERT INTO shows (id, name, last_air_date, next_episode_to_air, in_production, episode_run_time, poster_path, overview, tagline) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);';
-      const result = await db.query(queryString, queryParams);
+      console.log('second in add')
+      queryString = 'INSERT INTO shows (id, name, last_air_date, next_episode_to_air, in_production, episode_run_time, poster_path, overview, tagline) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);';
+      result = await db.query(queryString, queryParams);
       // destructure genres and networks and write to db
       const { genres, networks } = show;
       genres.forEach(async (genre) => {
         params = [genre.id, genre.name];
+        console.log('third in add')
         const queryString = 'INSERT INTO genres(id, name) VALUES($1, $2) ON CONFLICT (id) DO UPDATE;';
         const result = await db.query(queryString, params);
       });
       networks.forEach(async (network) => {
         params = [network.id, network.name, network.logo_path];
+        console.log('fourth in add');
         const queryString = 'INSERT INTO networks(id, name, logo_path) VALUES($1, $2, $3) ON CONFLICT (id) DO UPDATE;';
         const result = await db.query(queryString, params);
       });
@@ -80,9 +91,13 @@ const showsController = {
   addFavorite: async (req, res, next) => {
     try {
       const { showId, userId } = req.body;
+      console.log('addFavorite', showId, userId);
       const params = [userId, showId];
-      const queryString = 'INSERT INTO favorites(user_id, show_id) VALUES($1, $2);';
-      const result = await db.query(queryString, params);
+      console.log('in add fav params:', params);
+      const queryString = 'INSERT INTO favorites(user_id, show_id) VALUES($1, $2) ON CONFLICT DO NOTHING;';
+      setTimeout(() => { db.query(queryString, params); }, 3000)
+      // const result = await db.query(queryString, params);
+      console.log('success');
     } catch (err) {
       return next({
         log: `An error occurred in showsController.addFavorite middleware: ${err}`,
@@ -96,10 +111,14 @@ const showsController = {
     try {
       const { showId, userId } = req.body;
       const params = [userId, showId];
-      const queryString = 'DELETE FROM favorites WHERE (user_id = $1 AND shows_id = $2)';
+      console.log(userId, showId)
+      const queryString = 'DELETE FROM favorites WHERE (user_id = $1 AND show_id = $2)';
       const result = await db.query(queryString, params);
     } catch (err) {
-      return next(err);
+      return next({
+        log: `An error occurred in showsController.removeFavorite middleware: ${err}`,
+        message: { err: 'An error occurred while removing a favorite' },
+      });
     }
     return next();
   },
@@ -107,11 +126,17 @@ const showsController = {
   getFavorites: async (req, res, next) => {
     try {
       const { userId } = req.body;
-      const result = await db.query('SELECT shows_id FROM favorites WHERE users_id = $1;', [userId]);
-      const favorites = result.rows;
-      res.locals.favorites = favorites;
+      // let result = await db.query('SELECT show_id FROM favorites WHERE user_id = $1;', [userId]);
+      // const favShowsId = result.rows.map((show) => show.show_id);
+      // console.log('favShowsId', favShowsId)
+      const result = await db.query('SELECT * FROM shows INNER JOIN favorites ON favorites.show_id = shows.id WHERE favorites.user_id = $1;', [userId]);
+      // console.log('result', result.rows)
+      res.locals.favorites = result.rows;
     } catch (err) {
-      return next(err);
+      return next({
+        log: `An error occurred in showsController.getFavorites middleware: ${err}`,
+        message: { err: 'An error occurred while retrieving favorites' },
+      });
     }
     return next();
   },
