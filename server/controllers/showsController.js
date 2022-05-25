@@ -111,7 +111,8 @@ const showsController = {
     try {
       const { showId, userId } = req.body;
       const params = [userId, showId];
-      const queryString = 'DELETE FROM favorites WHERE (user_id = $1 AND shows_id = $2)';
+      console.log(userId, showId)
+      const queryString = 'DELETE FROM favorites WHERE (user_id = $1 AND show_id = $2)';
       const result = await db.query(queryString, params);
     } catch (err) {
       return next({
@@ -125,9 +126,12 @@ const showsController = {
   getFavorites: async (req, res, next) => {
     try {
       const { userId } = req.body;
-      const result = await db.query('SELECT show_id FROM favorites WHERE user_id = $1;', [userId]);
-      const favorites = result.rows;
-      res.locals.favorites = favorites;
+      // let result = await db.query('SELECT show_id FROM favorites WHERE user_id = $1;', [userId]);
+      // const favShowsId = result.rows.map((show) => show.show_id);
+      // console.log('favShowsId', favShowsId)
+      const result = await db.query('SELECT * FROM shows INNER JOIN favorites ON favorites.show_id = shows.id WHERE favorites.user_id = $1;', [userId]);
+      // console.log('result', result.rows)
+      res.locals.favorites = result.rows;
     } catch (err) {
       return next({
         log: `An error occurred in showsController.getFavorites middleware: ${err}`,
