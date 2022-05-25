@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 // http://localhost:3000/api/shows/find/?search=${searchTerm}
-=======
->>>>>>> Yale/search
-const utilFuncs = {};
+//const utilFuncs = {};
 
 utilFuncs.getResults = async (searchString) => {
   try {
@@ -63,7 +60,6 @@ utilFuncs.removeFav = async(showId, userId) => {
   }
 };
 
-<<<<<<< HEAD
 utilFuncs.signup = async(username, password, setLoginForDispatch, setUserIdForDispatch, setSignupError) => {
   try {
     const data = await fetch('/api/user/signup', {
@@ -113,8 +109,6 @@ utilFuncs.login = async(username, password, setLoginForDispatch, setUserIdForDis
   }
 }
 
-export default utilFuncs;
+// export default utilFuncs;
 // got it
-=======
 export const { getResults, getFavorites, addFavorite, removeFav } = utilFuncs;
->>>>>>> Yale/search

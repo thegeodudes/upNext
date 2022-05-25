@@ -3,14 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   shows: {},
   loggedIn: true,
-<<<<<<< HEAD
-  userId: 0,
-  searchResults: {},
-=======
+  // userId: 0,
   userId: 1,
   searchResults: {},
   favoriteShows: [],
->>>>>>> Yale/search
 };
 
 /* eslint-disable no-param-reassign */

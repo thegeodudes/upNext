@@ -17,15 +17,9 @@ function Main(props) {
   const userId = useSelector((store) => store.app.userId);
   // useEffect on initial load, get users already starred shows to store in state
   // dispatch(setLogin(true));
-<<<<<<< HEAD
-  //const [username, setUsername] = useState('Charles_Entertainment_Chz');
-  const [showTitle, setShowTitle] = useState('');
-  const handleTitleChange = ((e) => setShowTitle(e.target.value));
-=======
   const [username, setUsername] = useState('Charles_Entertainment_Chz');
   const [searchString, setSearchString] = useState('');
   const handleTitleChange = ((e) => setSearchString(e.target.value));
->>>>>>> Yale/search
   const [searchSubmit, setSearchSubmit] = useState(false);
   const [searchResult, setSearchResult] = useState({});
   const [myShows, setMyShows] = useState([]);
@@ -77,11 +71,7 @@ function Main(props) {
         <FavsContainer />
       </div>
       <div className="myShows">
-<<<<<<< HEAD
         <Grid container direction="row" justifyContent="center" alignItems="center">
-=======
-        <Grid container direction="row" justifyContent="center alignItems=">
->>>>>>> Yale/search
           {mySearch}
         </Grid>
       </div>
