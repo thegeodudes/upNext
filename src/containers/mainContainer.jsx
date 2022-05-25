@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, AppBar, Toolbar, Typography, Button, TextField, Grid } from '@mui/material';
-// import SearchIcon from '@mui/icons-material/Search';
+import { Box, AppBar, Toolbar, Typography, Button, TextField } from '@mui/material';
 import SearchedShowsModal from './searchedShowsModal';
-// import FavCalendar from './FavCalendar';
-// import ShowCard from './savedShowCard';
-// import SearchCard from './searchCard';
 import FavsContainer from './favsContainer';
-import { getResults, getFavorites } from '../funcs';
-import { setLogin, saveSearchResults } from './../features/appSlice'
+import { getResults } from '../funcs';
+import { saveSearchResults, setRefresh } from './../features/appSlice'
 
 function Main(props) {
   const dispatch = useDispatch();
 
   const loggedIn = useSelector((store) => store.app.loggedIn);
-  const userId = useSelector((store) => store.app.userId);
 
   const [searchString, setSearchString] = useState('');
   const handleTitleChange = ((e) => setSearchString(e.target.value));
   const [searchSubmit, setSearchSubmit] = useState(false);
-
+  const [refresh, setRefresh] = useState(0);
   const handleSearchSubmit = async () => {
     const searchResults = await getResults(searchString);
     dispatch(saveSearchResults(searchResults));
     setSearchSubmit(true);
   };
+
+  const handleRefresh = () => {
+    setRefresh(refresh + 1);
+  };
+
+  // useEffect(() => {
+  //   // setRefresh(refresh + 1);
+  //   // console.log('search changed', refresh)
+  //   setInterval(setRefresh(refresh + 1), 1000);
+  // }, []);
 
   return (
     <div>
@@ -48,11 +53,12 @@ function Main(props) {
             onChange={handleTitleChange} 
           />
           <Button variant="contained" color="secondary" onClick={handleSearchSubmit}>Search</Button>
+          <Button variant="contained" color="secondary" onClick={handleRefresh}>Refresh</Button>
         </Box>
-        <FavsContainer />
+        <FavsContainer searchSubmit={searchSubmit} refresh={refresh}/>
       </div>
       <div className="searchedShows">
-        <SearchedShowsModal searchSubmit={searchSubmit} setSearchSubmit={setSearchSubmit}/>
+        <SearchedShowsModal searchSubmit={searchSubmit} setSearchSubmit={setSearchSubmit} refresh={refresh}/>
       </div>
     </div>
   );

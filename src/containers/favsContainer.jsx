@@ -20,21 +20,28 @@ const style = {
   // pb: 3,
 };
 
-function FavsContainer() {
+function FavsContainer(props) {
   const dispatch = useDispatch();
   const loggedIn = useSelector((store) => store.app.loggedIn);
   const userId = useSelector((store) => store.app.userId);
-  const [refresh, setRefresh] = useState(useSelector((store) => store.app.refresh));
 
   const [myShows, setMyShows] = useState([]);
 
+  // useEffect(() => {
+  //   // setRefresh(refresh + 1);
+  //   // console.log('search changed', refresh)
+  //   setInterval(setRefresh(refresh + 1), 500);
+  // }, []);
+
   useEffect(() => {
     const getFaves = async () => {
+      console.log('loggedin', loggedIn);
       if (loggedIn) {
+        console.log('redrawing')
         const tempShows = [];
         const shows = await getFavorites(userId);
         dispatch(saveFavoriteShows(shows));
-        console.log(shows);
+        console.log('shows', shows);
         shows.forEach((show) => {
           tempShows.push(<Grid><ShowCard show={show} /></Grid>);
         });
@@ -42,16 +49,18 @@ function FavsContainer() {
       }
     };
     getFaves();
-  }, [loggedIn, userId, refresh]);
+  }, [props.refresh, props.searchSubmit]);
 
   return (
     <div>
-    <Grid container direction="row" display="flex" justifyContent="center" alignItems="center" sx={{ ...style }}>
-      {myShows}
-    </Grid>
-    <Grid >
-    <FavCalendar />
-    </Grid>
+      <Grid container direction="column" display="flex" justifyContent="center" alignItems="center" >
+        <Grid container direction="row" display="flex" justifyContent="center" alignItems="center" sx={{ ...style }}>
+          {myShows}
+        </Grid>
+        <Grid>
+          <FavCalendar />
+        </Grid>
+      </Grid>
     </div>
   )
 }

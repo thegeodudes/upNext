@@ -47,7 +47,8 @@ export default function ShowCard(props) {
           //     <MoreVertIcon />
           //   </IconButton>
           // }
-          sx={{ height: '100px' }}
+          sx={{ height: '100px'}}
+          titleTypographyProps={{variant: 'h6' }}
           title={name}
           subheader={tagline}
         />
@@ -57,7 +58,7 @@ export default function ShowCard(props) {
           image={`https://www.themoviedb.org/t/p/w1280/${poster_path}`}
           alt={name}
         />
-        <CardContent>
+        <CardContent sx={{ height: '200px'}}>
           <Typography variant="body2" color="text.secondary">Last Air Date: {last_air_date} </Typography>
           <Typography variant="body2" color="text.secondary">Next Air Date: {next_episode_to_air}</Typography>
           <Typography variant="body2" color="text.secondary">In production: {in_production}</Typography>

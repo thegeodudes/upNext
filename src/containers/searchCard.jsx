@@ -37,7 +37,9 @@ export default function ShowCard(props) {
             <IconButton aria-label="Add to faves" sx={{ color: "purple" }} onClick={() => { 
               addFavorite(props.show.id, props.userId)
               props.setOpen(false)
-              dispatch(setRefresh())}}>
+              dispatch(setRefresh())
+              props.setSearchSubmit(false)
+              }}>
               <AutoAwesomeIcon />
             </IconButton>
           }
