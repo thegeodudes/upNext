@@ -16,6 +16,8 @@
 -- 	"in_production" varchar(255),
 -- 	"poster_path" varchar(255),
 -- 	"episode_run_time" int,
+--  "overview" varchar(255),
+--  "tagline" varchar(255),
 --  "networks_id" int,
 --  "genres_id" int,
 -- 	CONSTRAINT "shows_pk" PRIMARY KEY ("id")
