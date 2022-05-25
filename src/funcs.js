@@ -1,5 +1,5 @@
 // http://localhost:3000/api/shows/find/?search=${searchTerm}
-//const utilFuncs = {};
+const utilFuncs = {};
 
 utilFuncs.getResults = async (searchString) => {
   try {
@@ -111,4 +111,4 @@ utilFuncs.login = async(username, password, setLoginForDispatch, setUserIdForDis
 
 // export default utilFuncs;
 // got it
-export const { getResults, getFavorites, addFavorite, removeFav } = utilFuncs;
+export const { getResults, getFavorites, addFavorite, removeFav, signup, login } = utilFuncs;

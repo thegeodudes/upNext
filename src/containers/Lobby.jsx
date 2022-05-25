@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { Button, Paper, Typography, Box, Grid} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import utilFuncs from '../funcs';
+import {signup, login} from '../funcs';
 import { setUserId, setLogin } from '../features/appSlice';
 import Signup from './Signup';
 import Login from './Login';
@@ -45,7 +45,7 @@ function Lobby(props) {
     setTrySignup(true);
   }
   const handleLoginSubmit = () => {
-    utilFuncs.login(props.username, password, setLoginForDispatch, setUserIdForDispatch, setLoginError)
+    login(props.username, password, setLoginForDispatch, setUserIdForDispatch, setLoginError)
     dispatch(setLogin(loginForDispatch));
     dispatch(setUserId(userIdForDispatch));
     if (props.username && !loginError) {
@@ -56,7 +56,7 @@ function Lobby(props) {
     }
   };
   const handleSignupSubmit = () => {
-    utilFuncs.signup(props.username, password, setLoginForDispatch, setUserIdForDispatch, setSignupError);
+    signup(props.username, password, setLoginForDispatch, setUserIdForDispatch, setSignupError);
     dispatch(setLogin(loginForDispatch));
     dispatch(setUserId(userIdForDispatch));
    if(props.username && !signupError) {

@@ -90,7 +90,28 @@ const showsController = {
 
   addFavorite: async (req, res, next) => {
     try {
+      let doesShowExist = false;
+      let timeout = 0;
       const { showId, userId } = req.body;
+
+      function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      async function looper() {
+        let params = [showId];
+        let queryString = 'SELECT FROM shows WHERE id = $1;';
+        let result = await db.query(queryString, params);
+        console.log('what is result', result)
+        if (result.rows.length) doesShowExist = true;
+        timeout++;
+      }
+      let intervalId = setInterval(looper, 1000)
+      while (timeout < 10 || doesShowExist) {
+        await sleep(1000)
+      }
+      console.log('timed out')
+      if (timeout === 10) return next();
       console.log('addFavorite', showId, userId);
       const params = [userId, showId];
       console.log('in add fav params:', params);
