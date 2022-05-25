@@ -18,3 +18,17 @@
 // justify-content: center;
 //  //align-items: center;
 // }
+
+.upNext {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //background-image: url('/upNext.png');
+  // background-size: cover;
+  // position:absolute;
+  top:0px;
+  right:50px;
+  bottom:0px;
+  left:0px;
+}

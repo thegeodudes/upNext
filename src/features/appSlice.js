@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   shows: {},
   loggedIn: true,
-  searchResults: [],
+  userId: 0,
+  searchResults: {},
 };
 
 /* eslint-disable no-param-reassign */
@@ -17,6 +18,9 @@ const appSlice = createSlice({
     setLogin(state, action) {
       state.loggedIn = action.payload;
     },
+    setUserId(state, action) {
+      state.userId = action.payload;
+    },
     saveSearchResults(state, action) {
       state.searchResults = action.payload;
     },
@@ -28,6 +32,7 @@ const { actions, reducer } = appSlice;
 export const {
   addToFavorites,
   setLogin,
+  setUserId,
   saveSearchResults,
 } = actions;
 

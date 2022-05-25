@@ -15,7 +15,7 @@ function Main(props) {
   const userId = useSelector((store) => store.app.loggedIn);
   // useEffect on initial load, get users already starred shows to store in state
   // dispatch(setLogin(true));
-  const [username, setUsername] = useState('Charles_Entertainment_Chz');
+  //const [username, setUsername] = useState('Charles_Entertainment_Chz');
   const [showTitle, setShowTitle] = useState('');
   const handleTitleChange = ((e) => setShowTitle(e.target.value));
   const [searchSubmit, setSearchSubmit] = useState(false);
@@ -61,7 +61,7 @@ function Main(props) {
               <Typography color="secondary" variant="h5" component="div" sx={{ flexGrow: 1, ml: 16 }}>
                 upNext
               </Typography>
-              <Button variant="outlined" color="inherit">{username}</Button>
+              <Button variant="outlined" color="inherit">{props.username}</Button>
             </Toolbar>
           </AppBar>
         </Box>
@@ -78,7 +78,7 @@ function Main(props) {
         {searchSubmit && <SearchedShows searchResult={searchResult}/>}
       </div>
       <div className="myShows">
-        <Grid container direction="row" justifyContent="center alignItems="center>
+        <Grid container direction="row" justifyContent="center" alignItems="center">
           {mySearch}
         </Grid>
       </div>
