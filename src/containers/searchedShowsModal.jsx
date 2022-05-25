@@ -30,26 +30,32 @@ function SearchedShowsModal(props) {
   const userId = useSelector((store) => store.app.userId);
   const [open, setOpen] = React.useState(false);
   const [shows, setShows] = React.useState([]);
+  const { searchSubmit } = props;
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
+  const handleClose = (event, reason) => {
+    if (reason === 'backdropClick') {
+      setOpen(false);
+    }
+  }
 
   useEffect(() => {
-    if (props.searchSubmit) {
+    if (searchSubmit) {
       console.log('what is', searchResults);
       const showList = searchResults.results.map((show) => <Grid><SearchCard show={show} userId={userId} setOpen={setOpen} /></Grid>);
       setShows(showList.slice(0, 5));
       setOpen(true);
     }
-  }, [props.searchSubmit]);
+  }, [searchSubmit]);
 
   return (
     <Modal
       open={open}
-      // onClose={handleClose}
+      onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Grid container direction="row" display="flex" justifyContent="center alignItems=" sx={{ ...style }}>
+      <Grid container direction="row" display="flex" justifyContent="center" alignItems="center" sx={{ ...style }}>
         {shows}
       </Grid>
     </Modal>

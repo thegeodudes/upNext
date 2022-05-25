@@ -5,6 +5,7 @@ const initialState = {
   loggedIn: true,
   userId: 1,
   searchResults: {},
+  favoriteShows: [],
 };
 
 /* eslint-disable no-param-reassign */
@@ -21,6 +22,9 @@ const appSlice = createSlice({
     saveSearchResults(state, action) {
       state.searchResults = action.payload;
     },
+    saveFavoriteShows(state, action) {
+      state.favoriteShows = action.payload;
+    },
   },
 });
 
@@ -30,6 +34,7 @@ export const {
   addToFavorites,
   setLogin,
   saveSearchResults,
+  saveFavoriteShows,
 } = actions;
 
 export default reducer;

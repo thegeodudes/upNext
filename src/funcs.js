@@ -18,7 +18,7 @@ utilFuncs.getFavorites = async (userId) => {
       body: JSON.stringify({ userId }),
       headers: { 'Content-Type': 'application/json' },
     });
-    return results;
+    return await results.json();
   } catch (err) {
     console.log('ERROR', err);
   }
@@ -47,8 +47,8 @@ utilFuncs.removeFav = async(showId, userId) => {
     const results = await fetch('/api/shows/removefavorite', {
       method: 'POST',
       body: JSON.stringify({
-        userId: 1,
-        showId: 1399,
+        userId,
+        showId,
       }),
       headers: {
         'Content-Type': 'application/json',

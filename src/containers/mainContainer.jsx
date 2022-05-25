@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, AppBar, Toolbar, Typography, Button, TextField, Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchedShowsModal from './searchedShowsModal';
-import ShowCard from './savedShowCard';
 import SearchCard from './searchCard';
+import FavsContainer from './favsContainer';
 import { getResults, getFavorites } from '../funcs';
 import { setLogin, saveSearchResults } from './../features/appSlice'
 
@@ -30,31 +30,18 @@ function Main(props) {
   };
 
   // for search result display
-  useEffect(() => {
-    if (loggedIn && Object.keys(searchResult).length) {
-      const tempShows = [];
-      searchResult.results.forEach((res) => {
-        tempShows.push(<SearchCard show={res} />);
-      });
-      setMySearch(tempShows);
-    }
-  }, [loggedIn, searchResult]);
+  // useEffect(() => {
+  //   if (loggedIn && Object.keys(searchResult).length) {
+  //     const tempShows = [];
+  //     searchResult.results.forEach((res) => {
+  //       tempShows.push(<SearchCard show={res} />);
+  //     });
+  //     setMySearch(tempShows);
+  //   }
+  // }, [loggedIn, searchResult]);
 
   // for already faved shows
-  useEffect(() => {
-    const getFaves = async () => {
-      if (loggedIn) {
-        const tempShows = [];
-        const shows = await getFavorites(userId);
-        console.log(shows)
-        shows.forEach((res) => {
-          tempShows.push(<ShowCard props={res} />);
-        });
-        setMyShows(tempShows);
-      }
-    };
-    getFaves();
-  }, [loggedIn]);
+
 
   return (
     <div>
@@ -79,7 +66,7 @@ function Main(props) {
           />
           <Button variant="contained" color="secondary" onClick={handleSearchSubmit}>Search</Button>
         </Box>
-        {/* {searchSubmit && <SearchedShowsModal searchResult={searchResult}/>} */}
+        <FavsContainer />
       </div>
       <div className="myShows">
         <Grid container direction="row" justifyContent="center alignItems=">

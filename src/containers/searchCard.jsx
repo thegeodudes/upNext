@@ -41,7 +41,7 @@ export default function ShowCard(props) {
         />
         <CardMedia
           component="img"
-          height="350"
+          height="250"
           image={`https://www.themoviedb.org/t/p/w1280/${props.show.poster_path}`}
           alt={props.name}
         />
