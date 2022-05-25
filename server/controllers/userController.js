@@ -14,7 +14,10 @@ const userController = {
       res.locals.result = result.rowCount;
       res.locals.userId = result.rows[0].id;
     } catch (err) {
-      return next(err);
+      return next({
+        log: `An error occurred in userController.signup middleware: ${err}`,
+        message: { err: 'An error occurred while registering a user' },
+      });
     }
     return next();
   },
@@ -27,7 +30,10 @@ const userController = {
       if (verified) res.locals.userId = data.rows[0].id;
       else throw new Error('you are NOT verified!');
     } catch (err) {
-      return next(err);
+      return next({
+        log: `An error occurred in userController.login middleware: ${err}`,
+        message: { err: 'An error occurred while logging in a user' },
+      });
     }
     return next();
   },

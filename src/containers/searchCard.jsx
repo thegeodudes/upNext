@@ -11,30 +11,33 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { purple } from '@mui/material/colors';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { addFavorite } from './../funcs'
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+// const ExpandMore = styled((props) => {
+//   const { expand, ...other } = props;
+//   return <IconButton {...other} />;
+// })(({ theme, expand }) => ({
+//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+//   marginLeft: 'auto',
+//   transition: theme.transitions.create('transform', {
+//     duration: theme.transitions.duration.shortest,
+//   }),
+// }));
 
 export default function ShowCard(props) {
   return (
     <Grid>
-      <Card variant="outlined" sx={{ maxWidth: 345 }}>
+      <Card variant="outlined">
         <CardHeader
           action={
-            <IconButton aria-label="Add to faves" sx={{ color: "purple" }}>
+            <IconButton aria-label="Add to faves" sx={{ color: "purple" }} onClick={() => { 
+              addFavorite(props.show.id, props.userId)
+              props.setOpen(false)}}>
               <AutoAwesomeIcon />
             </IconButton>
           }
           title={props.show.name}
-          // subheader="Find the Halo, win the war."
+          // subheader="{props.show.tagline}"
         />
         <CardMedia
           component="img"
