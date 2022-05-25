@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   refresh: 0,
   shows: {},
-  loggedIn: false,
-  userId: 0,
+  loggedIn: 'Yale',
+  userId: 3,
   searchResults: {},
   favoriteShows: [],
 };

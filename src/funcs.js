@@ -27,7 +27,6 @@ utilFuncs.getFavorites = async (userId) => {
 
 utilFuncs.addFavorite = async (showId, userId) => {
   try {
-    console.log('hello');
     const results = await fetch('/api/shows/addfavorite', {
       method: 'POST',
       body: JSON.stringify({
