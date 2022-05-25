@@ -32,9 +32,9 @@ function Lobby(props) {
   // dispatch(setLogin(true));
   const [loginForDispatch, setLoginForDispatch] = useState(false);
   const [userIdForDispatch, setUserIdForDispatch] = useState(0);
-  const [ loginError, setLoginError ] = useState(false);
-  const [ signupError, setSignupError ] = useState(false);
-  const [ tryLogin, setTryLogin ] = useState(false);
+  const [loginError, setLoginError] = useState(false);
+  const [signupError, setSignupError] = useState(false);
+  const [tryLogin, setTryLogin] = useState(false);
   const handleTryLogin = () => {
     setTrySignup(false);
     setTryLogin(true);
@@ -44,12 +44,13 @@ function Lobby(props) {
     setTryLogin(false);
     setTrySignup(true);
   }
-  const handleLoginSubmit = () => {
-    login(props.username, password, setLoginForDispatch, setUserIdForDispatch, setLoginError)
-    dispatch(setLogin(loginForDispatch));
-    dispatch(setUserId(userIdForDispatch));
-    if (props.username && !loginError) {
-     // setLoginSubmit(true);
+
+  const handleLoginSubmit = async () => {
+    const id = await login(props.username, password);
+    console.log('response from backend', id);
+    if (id !== 0) {
+      dispatch(setLogin(props.username));
+      dispatch(setUserId(id));
       navigate('/home', {replace: true}), [navigate]
     } else {
       setLoginError(true);
@@ -65,7 +66,7 @@ function Lobby(props) {
      setSignupError(true);
    }
   }
-  const paperStyle = {padding: 30, height: '45vh auto', width:700, margin: '10px auto', opacity: 0.85}
+  const paperStyle = {padding: 30, height: '45vh auto', width: 700, margin: '10px auto', opacity: 0.85};
   return (
     <div className="upNext">
       <Grid align='center' sx={{ m: 2}}>
@@ -108,7 +109,7 @@ function Lobby(props) {
        signupError={signupError}
       />}
     </div>
-  )
-};
+  );
+}
 
 export default Lobby;

@@ -69,7 +69,7 @@ utilFuncs.signup = async(username, password, setLoginForDispatch, setUserIdForDi
         password: password
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     });
     const success = await data.json();
@@ -85,26 +85,20 @@ utilFuncs.signup = async(username, password, setLoginForDispatch, setUserIdForDi
   }
 };
 
-utilFuncs.login = async(username, password, setLoginForDispatch, setUserIdForDispatch, setLoginError) => {
+utilFuncs.login = async(username, password) => {
   try {
     const data = await fetch('/api/user/login', {
       method: 'POST',
       body: JSON.stringify({
-        username: username,
-        password: password
+        username,
+        password,
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     });
-    const success = await data.json();
-    if (success > 0) {
-      setLoginForDispatch(true);
-      setUserIdForDispatch(success);
-      // set userId state to the response
-    }
+    return await data.json();
   } catch (err) {
-    setLoginError(true);
     console.log('ERROR', err);
   }
 }

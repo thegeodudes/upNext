@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
+  refresh: 0,
   shows: {},
-  loggedIn: true,
-  // userId: 0,
-  userId: 1,
+  loggedIn: false,
+  userId: 0,
   searchResults: {},
   favoriteShows: [],
 };
@@ -29,6 +29,9 @@ const appSlice = createSlice({
     saveFavoriteShows(state, action) {
       state.favoriteShows = action.payload;
     },
+    setRefresh(state) {
+      state.refresh += 1;
+    },
   },
 });
 
@@ -40,6 +43,7 @@ export const {
   setUserId,
   saveSearchResults,
   saveFavoriteShows,
+  setRefresh,
 } = actions;
 
 export default reducer;

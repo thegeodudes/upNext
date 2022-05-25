@@ -12,38 +12,19 @@ import { setLogin, saveSearchResults } from './../features/appSlice'
 
 function Main(props) {
   const dispatch = useDispatch();
-  // check that the user is legit
+
   const loggedIn = useSelector((store) => store.app.loggedIn);
   const userId = useSelector((store) => store.app.userId);
-  // useEffect on initial load, get users already starred shows to store in state
-  // dispatch(setLogin(true));
-  const [username, setUsername] = useState('Charles_Entertainment_Chz');
+
   const [searchString, setSearchString] = useState('');
   const handleTitleChange = ((e) => setSearchString(e.target.value));
   const [searchSubmit, setSearchSubmit] = useState(false);
-  const [searchResult, setSearchResult] = useState({});
-  const [myShows, setMyShows] = useState([]);
-  const [mySearch, setMySearch] = useState([]);
 
   const handleSearchSubmit = async () => {
     const searchResults = await getResults(searchString);
     dispatch(saveSearchResults(searchResults));
     setSearchSubmit(true);
   };
-
-  // for search result display
-  // useEffect(() => {
-  //   if (loggedIn && Object.keys(searchResult).length) {
-  //     const tempShows = [];
-  //     searchResult.results.forEach((res) => {
-  //       tempShows.push(<SearchCard show={res} />);
-  //     });
-  //     setMySearch(tempShows);
-  //   }
-  // }, [loggedIn, searchResult]);
-
-  // for already faved shows
-
 
   return (
     <div>
@@ -54,7 +35,7 @@ function Main(props) {
               <Typography color="secondary" variant="h5" component="div" sx={{ flexGrow: 1, ml: 16 }}>
                 upNext
               </Typography>
-              <Button variant="outlined" color="inherit">{props.username}</Button>
+              <Button variant="outlined" color="inherit">{loggedIn}</Button>
             </Toolbar>
           </AppBar>
         </Box>
@@ -70,19 +51,11 @@ function Main(props) {
         </Box>
         <FavsContainer />
       </div>
-      <div className="myShows">
-        <Grid container direction="row" justifyContent="center" alignItems="center">
-          {mySearch}
-        </Grid>
+      <div className="searchedShows">
+        <SearchedShowsModal searchSubmit={searchSubmit} setSearchSubmit={setSearchSubmit}/>
       </div>
-      <SearchedShowsModal searchSubmit={searchSubmit} />
     </div>
-  )
+  );
 }
 
 export default Main;
-//appbar
-
-//search bar component
-//fav container
-//calendar

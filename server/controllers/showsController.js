@@ -66,19 +66,19 @@ const showsController = {
       queryString = 'INSERT INTO shows (id, name, last_air_date, next_episode_to_air, in_production, episode_run_time, poster_path, overview, tagline) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9);';
       result = await db.query(queryString, queryParams);
       // destructure genres and networks and write to db
-      const { genres, networks } = show;
-      genres.forEach(async (genre) => {
-        params = [genre.id, genre.name];
-        console.log('third in add')
-        const queryString = 'INSERT INTO genres(id, name) VALUES($1, $2) ON CONFLICT (id) DO UPDATE;';
-        const result = await db.query(queryString, params);
-      });
-      networks.forEach(async (network) => {
-        params = [network.id, network.name, network.logo_path];
-        console.log('fourth in add');
-        const queryString = 'INSERT INTO networks(id, name, logo_path) VALUES($1, $2, $3) ON CONFLICT (id) DO UPDATE;';
-        const result = await db.query(queryString, params);
-      });
+      // const { genres, networks } = show;
+      // genres.forEach(async (genre) => {
+      //   params = [genre.id, genre.name];
+      //   console.log('third in add')
+      //   const queryString = 'INSERT INTO genres(id, name) VALUES($1, $2) ON CONFLICT (id) DO UPDATE;';
+      //   const result = await db.query(queryString, params);
+      // });
+      // networks.forEach(async (network) => {
+      //   params = [network.id, network.name, network.logo_path];
+      //   console.log('fourth in add');
+      //   const queryString = 'INSERT INTO networks(id, name, logo_path) VALUES($1, $2, $3) ON CONFLICT (id) DO UPDATE;';
+      //   const result = await db.query(queryString, params);
+      // });
     } catch (err) {
       return next({
         log: `An error occurred in showsController.add middleware: ${err}`,
@@ -90,33 +90,34 @@ const showsController = {
 
   addFavorite: async (req, res, next) => {
     try {
-      let doesShowExist = false;
-      let timeout = 0;
+      // let doesShowExist = false;
+      // let timeout = 0;
       const { showId, userId } = req.body;
 
-      function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
+      // function sleep(ms) {
+      //   return new Promise(resolve => setTimeout(resolve, ms));
+      // }
 
-      async function looper() {
-        let params = [showId];
-        let queryString = 'SELECT FROM shows WHERE id = $1;';
-        let result = await db.query(queryString, params);
-        console.log('what is result', result)
-        if (result.rows.length) doesShowExist = true;
-        timeout++;
-      }
-      let intervalId = setInterval(looper, 1000)
-      while (timeout < 10 || doesShowExist) {
-        await sleep(1000)
-      }
-      console.log('timed out')
-      if (timeout === 10) return next();
+      // async function looper() {
+      //   let params = [showId];
+      //   let queryString = 'SELECT FROM shows WHERE id = $1;';
+      //   let result = await db.query(queryString, params);
+      //   console.log('what is result', result)
+      //   if (result.rows.length) doesShowExist = true;
+      //   timeout++;
+      // }
+      // let intervalId = setInterval(looper, 1000)
+      // while (timeout < 10 || doesShowExist) {
+      //   await sleep(1000)
+      //   console.log('sleeping', timeout)
+      // }
+      // console.log('timed out')
+      // if (timeout === 10) return next();
       console.log('addFavorite', showId, userId);
       const params = [userId, showId];
       console.log('in add fav params:', params);
       const queryString = 'INSERT INTO favorites(user_id, show_id) VALUES($1, $2) ON CONFLICT DO NOTHING;';
-      setTimeout(() => { db.query(queryString, params); }, 3000)
+      let result = db.query(queryString, params);
       // const result = await db.query(queryString, params);
       console.log('success');
     } catch (err) {

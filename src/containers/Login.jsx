@@ -10,7 +10,9 @@ function Login(props) {
           <Grid align= 'center'>
             <h3>Log In</h3>
           </Grid>
-          <TextField label='Username' placeholder='Enter username' fullwidth='true' 
+          <TextField label='Username' 
+            placeholder='Enter username' 
+            fullwidth='true' 
             id="enterUsername"
             value={props.username}
             sx={{ m: 1, width: '25ch' }}

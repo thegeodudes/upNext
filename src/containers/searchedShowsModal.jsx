@@ -30,23 +30,23 @@ function SearchedShowsModal(props) {
   const userId = useSelector((store) => store.app.userId);
   const [open, setOpen] = React.useState(false);
   const [shows, setShows] = React.useState([]);
-  const { searchSubmit } = props;
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
   const handleClose = (event, reason) => {
+    props.setSearchSubmit(false);
     if (reason === 'backdropClick') {
       setOpen(false);
     }
-  }
+  };
 
   useEffect(() => {
-    if (searchSubmit) {
+    if (props.searchSubmit) {
       console.log('what is', searchResults);
       const showList = searchResults.results.map((show) => <Grid><SearchCard show={show} userId={userId} setOpen={setOpen} /></Grid>);
       setShows(showList.slice(0, 5));
       setOpen(true);
     }
-  }, [searchSubmit]);
+  }, [props.searchSubmit]);
 
   return (
     <Modal

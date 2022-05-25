@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
@@ -12,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import { purple } from '@mui/material/colors';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { addFavorite } from './../funcs'
+import { setRefresh } from './../features/appSlice'
+
 
 // const ExpandMore = styled((props) => {
 //   const { expand, ...other } = props;
@@ -25,6 +28,7 @@ import { addFavorite } from './../funcs'
 // }));
 
 export default function ShowCard(props) {
+  const dispatch = useDispatch();
   return (
     <Grid>
       <Card variant="outlined">
@@ -32,7 +36,8 @@ export default function ShowCard(props) {
           action={
             <IconButton aria-label="Add to faves" sx={{ color: "purple" }} onClick={() => { 
               addFavorite(props.show.id, props.userId)
-              props.setOpen(false)}}>
+              props.setOpen(false)
+              dispatch(setRefresh())}}>
               <AutoAwesomeIcon />
             </IconButton>
           }

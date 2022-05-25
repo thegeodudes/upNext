@@ -24,6 +24,7 @@ function FavsContainer() {
   const dispatch = useDispatch();
   const loggedIn = useSelector((store) => store.app.loggedIn);
   const userId = useSelector((store) => store.app.userId);
+  const [refresh, setRefresh] = useState(useSelector((store) => store.app.refresh));
 
   const [myShows, setMyShows] = useState([]);
 
@@ -41,7 +42,7 @@ function FavsContainer() {
       }
     };
     getFaves();
-  }, [loggedIn, userId]);
+  }, [loggedIn, userId, refresh]);
 
   return (
     <div>

@@ -41,7 +41,7 @@ function FavCalendar() {
     <Grid sx={{ flexGrow: 1, pt: 1, pl:2 }} container spacing={1}>
     <Grid item xs={12}>
       <Grid container spacing={spacing}>
-        {weekdays.map((value) => (
+        {weekdays2.map((value) => (
           <Grid key={value} item>
             <Paper sx={{ height: 150, width: 130 }}>
                 <Typography variant="caption">{value}</Typography>
